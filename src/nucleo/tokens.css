@@ -107,3 +107,19 @@ nav.pd-nav {
 }
 .volver:hover { background: rgba(255, 255, 255, 0.18); transform: translateY(-2px); }
 @media (max-width: 560px) { .volver-txt { display: none; } .volver { padding: 8px 11px; } }
+
+
+/* foto de apoyo detras del texto de una seccion (se agrega por config) */
+.foto-fondo {
+  position: absolute;
+  inset: -8vh -6vw;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  filter: saturate(1.05) contrast(1.02);
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, #000 35%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, #000 35%, transparent 78%);
+  pointer-events: none;
+}
+.seccion { position: relative; }

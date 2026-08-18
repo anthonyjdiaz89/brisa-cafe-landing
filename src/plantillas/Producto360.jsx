@@ -162,6 +162,9 @@ export default function Producto360() {
             <Scroll html style={{ width: '100%' }}>
               {CONTENIDO.secciones.map((s, i) => (
                 <section className={'seccion ' + (s.lado || 'centro')} key={i}>
+                  {s.foto && (
+                    <div className="foto-fondo" style={{ backgroundImage: `url(${BASE + s.foto})` }} />
+                  )}
                   <div className="eyebrow">{s.eyebrow}</div>
                   <h2>{s.titulo}</h2>
                   <p>{s.texto}</p>
