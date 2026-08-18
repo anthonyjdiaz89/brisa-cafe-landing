@@ -62,24 +62,55 @@ function CamaraRecorrido() {
 function Escenario() {
   return (
     <>
-      <ambientLight intensity={1.0} />
-      <hemisphereLight args={[0xdde4ff, 0x151520, 0.7]} />
-      <spotLight position={[6, 9, 4]} angle={0.5} penumbra={0.7} intensity={420} color="#ffffff" />
-      <spotLight position={[-7, 4, -5]} angle={0.6} penumbra={0.9} intensity={160} color="#e8b06a" />
-      <spotLight position={[4, 3, -7]} angle={0.6} penumbra={0.9} intensity={130} color="#8a4b2a" />
-      {/* piso: sombra de contacto + anillo de marca */}
-      <ContactShadows position={[0, -1.02, 0]} opacity={0.65} scale={16} blur={2.4} far={4} />
+      {/* luz de media manana como en la foto de referencia */}
+      <ambientLight intensity={0.85} color="#ffe6c4" />
+      <hemisphereLight args={[0xffe0b0, 0x2a1a0e, 0.9]} />
+      <spotLight position={[7, 8, 5]} angle={0.55} penumbra={0.75} intensity={520} color="#fff1d6" castShadow />
+      <spotLight position={[-8, 3, -4]} angle={0.7} penumbra={0.9} intensity={210} color="#e8b06a" />
+      <spotLight position={[2, 2, -8]} angle={0.7} penumbra={0.9} intensity={150} color="#7a9a3a" />
+      <ContactShadows position={[0, -1.02, 0]} opacity={0.7} scale={16} blur={2.2} far={4} />
+      {/* mesa de madera */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.05, 0]} receiveShadow>
+        <circleGeometry args={[26, 64]} />
+        <meshStandardMaterial color="#3a2416" roughness={0.85} metalness={0.05} />
+      </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.03, 0]}>
         <ringGeometry args={[3.4, 3.48, 80]} />
-        <meshBasicMaterial color="#e8b06a" transparent opacity={0.35} />
+        <meshBasicMaterial color="#e8b06a" transparent opacity={0.3} />
       </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.05, 0]}>
-        <circleGeometry args={[24, 48]} />
-        <meshStandardMaterial color="#0a0a12" roughness={0.9} metalness={0.2} />
-      </mesh>
-      {/* polvo de estrellas de marca alrededor */}
+      <GranosDeCafe />
       <Estrellas />
     </>
+  );
+}
+
+// granos de cafe regados sobre la mesa, como en la foto del cliente
+function GranosDeCafe() {
+  const granos = useMemo(() => {
+    const lista = [];
+    let semilla = 7;
+    const azar = () => { semilla = (semilla * 16807) % 2147483647; return semilla / 2147483647; };
+    for (let i = 0; i < 260; i++) {
+      const ang = azar() * Math.PI * 2;
+      const radio = 3.6 + azar() * 11;
+      lista.push({
+        pos: [Math.cos(ang) * radio, -0.97 + azar() * 0.05, Math.sin(ang) * radio],
+        rot: [azar() * 3, azar() * 6, azar() * 3],
+        esc: 0.11 + azar() * 0.07,
+        tono: azar() > 0.5 ? '#4a2c17' : '#33200f',
+      });
+    }
+    return lista;
+  }, []);
+  return (
+    <group>
+      {granos.map((g, i) => (
+        <mesh key={i} position={g.pos} rotation={g.rot} scale={[g.esc * 1.35, g.esc, g.esc * 0.8]} castShadow>
+          <sphereGeometry args={[1, 10, 8]} />
+          <meshStandardMaterial color={g.tono} roughness={0.55} metalness={0.05} />
+        </mesh>
+      ))}
+    </group>
   );
 }
 
@@ -152,7 +183,7 @@ export default function Producto360() {
         gl={{ antialias: true }}
         style={{ position: 'fixed', inset: 0 }}
       >
-        <color attach="background" args={['#120b06']} />
+        <color attach="background" args={['#1c1108']} />
         <fog attach="fog" args={['#120b06', 16, 34]} />
         <Suspense fallback={null}>
           <ScrollControls pages={paginas} damping={0.22}>
