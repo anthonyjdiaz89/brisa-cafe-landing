@@ -46,6 +46,7 @@ export const CONTENIDO = {
     },
     {
       eyebrow: 'Pídelo',
+      foto: 'foto-cafe.jpg',
       titulo: 'Te lo llevamos\nrecién tostado.',
       texto: 'Domicilios en Barranquilla el mismo día y envíos a todo el país. Escríbenos y te contamos del lote de esta semana.',
       cta: 'Escríbenos por WhatsApp',
