@@ -112,8 +112,8 @@ nav.pd-nav {
 /* foto de apoyo detras del texto de una seccion (se agrega por config) */
 .foto-fondo {
   position: absolute;
-  inset: -8vh -6vw;
-  z-index: -1;
+  inset: -6vh -6vw;
+  z-index: 0;
   background-size: cover;
   background-position: center;
   opacity: 0.5;
@@ -123,3 +123,4 @@ nav.pd-nav {
   pointer-events: none;
 }
 .seccion { position: relative; }
+.seccion .eyebrow, .seccion h2, .seccion p, .seccion .cta-pill { position: relative; z-index: 1; }
