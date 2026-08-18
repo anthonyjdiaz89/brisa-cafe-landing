@@ -20,8 +20,8 @@ export const CONTENIDO = {
       titulo: 'El Caribe,\nen una taza.',
       texto: 'Tostamos cada lote en Barranquilla con granos de la Sierra Nevada. Recórrelo con el scroll: esto no es una foto, es la taza real en 3D.',
       cta: 'Desliza para recorrerlo',
-      camara: { pos: [0, 3.1, 9.4], mirar: [0, -1.15, 0] },
-      lado: 'centro',
+      camara: { pos: [-2.6, 1.9, 8.2], mirar: [-1.5, 0.05, 0] },
+      lado: 'izquierda',
     },
     {
       eyebrow: 'El tueste',
